@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+
+<table border="1" width="1000">
+<tr>
+    <td>Name</td>
+    <td>Serial</td>
+    <td>Status</td>
+    <td>Time</td>
+</tr>
+{% for row in df.iterrows() %}
+<tr>
+    <td><a href="/t/{{row[0]}}">{{row[1]['name_transfomr']}}</a></td>
+    <td>{{row[1]['serial']}}</td>
+    <td>{{row[1]['status']}}</td>
+    <td>{{row[1]['time_end']}}</td>
+</tr>
+{% endfor %}
+</table>
+
+</body>
+</html>
