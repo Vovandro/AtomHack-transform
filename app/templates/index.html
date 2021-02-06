@@ -49,9 +49,16 @@
                             <td><a href="/t/{{row[0]}}">{{row[1]['name_transfomr']}}</a></td>
                             <td>{{row[1]['serial']}}</td>
                             {% if row[1]['status'] == 1 %}
-                                <td>{{row[1]['status']}}</td>
-                            {% else %}
-                                <td style="background-color: #ffacac;">{{row[1]['status']}}</td>
+                                <td>Исправная работа</td>
+                            {% endif %}
+                            {% if row[1]['status'] == 2 %}
+                                <td style="background-color: #ffacac;">Частичный разряд</td>
+                            {% endif %}
+                            {% if row[1]['status'] == 3 %}
+                                <td style="background-color: #ffacac;">Разряд низкой энергией</td>
+                            {% endif %}
+                            {% if row[1]['status'] == 4 %}
+                                <td style="background-color: #acdfff;">Низкотемпературный термический дефектастичный разряд</td>
                             {% endif %}
                             <td>{{row[1]['time_end']}}</td>
                         </tr>
