@@ -39,7 +39,7 @@ def t(id):
 # Adding interface
 @app.route('/api/add/<int:id>', method='POST')
 def add(id):
-    data = request.json
+    data = request.get_json(silent=True)
     return str(models.addTransformData(id, data))
 
 
