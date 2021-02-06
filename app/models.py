@@ -20,6 +20,16 @@ def updateTransform(id, status, time_end):
     engine = create_engine('mysql+pymysql://root:root@127.0.0.1:3306/transform', echo=False)
     engine.execute("UPDATE transforms SET status="+str(status)+", time_end="+str(time_end)+" WHERE id=" + str(id))
 
+def addTransformData(id, data):
+    engine = create_engine('mysql+pymysql://root:root@127.0.0.1:3306/transform', echo=False)
+    try:
+        engine.execute("INSERT INTO data (transform_id,H2,CO,C2H4,C2H2) VALUES ("+str(id)+", "+str(data['H2'])+", "+
+                   str(data['CO'])+", "+str(data['C2H4'])+", "+str(data['C2H2'])+")")
+    except:
+        return False
+
+    return True
+
 
 def updateAllTransform(df):
     engine = create_engine('mysql+pymysql://root:root@127.0.0.1:3306/transform', echo=False)

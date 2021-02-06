@@ -1,11 +1,13 @@
 from app import app, models
 from flask import render_template
-from flask import helpers, redirect, url_for
+from flask import redirect
+from flask import request
 import catboost as cb
 from matplotlib.figure import Figure
 import base64
 from io import BytesIO
 
+# Index page, list transformators
 @app.route('/')
 @app.route('/index')
 def index():
@@ -14,6 +16,7 @@ def index():
     return render_template("index.html", df=df, counts=df.groupby('status')['name_transfomr'].count())
 
 
+# Get history transformators
 @app.route('/t/<int:id>')
 def t(id):
     df = models.getTransforms(id)
@@ -33,7 +36,28 @@ def t(id):
     return render_template("detailed.html", graph=data, last=df.iloc[-1])
 
 
-@app.route('/update')
+# Adding interface
+@app.route('/api/add/<int:id>', method='POST')
+def add(id):
+    data = request.json
+    return str(models.addTransformData(id, data))
+
+
+# Get all transform data interface
+@app.route('/api/getall', method='POST')
+def add():
+    data = models.getTransformsList().to_json()
+    return data
+
+
+# Get all transform interface
+@app.route('/api/get/<int:id>', method='POST')
+def add():
+    data = models.getTransforms(id).to_json()
+    return data
+
+# Interface update ML predict (Long Time)
+@app.route('/api/update')
 def update():
     model_1 = cb.CatBoostClassifier().load_model("./app/model1")
     model_2 = cb.CatBoostRegressor().load_model("./app/model2")
