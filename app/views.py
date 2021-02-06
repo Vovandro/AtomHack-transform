@@ -11,26 +11,26 @@ from io import BytesIO
 def index():
     df = models.getTransformsList()
     df.sort_values('name_transfomr', inplace=True)
-    return render_template("index.html", title='Home', df=df)
+    return render_template("index.html", df=df, counts=df.groupby('status')['name_transfomr'].count())
 
 
 @app.route('/t/<int:id>')
 def t(id):
     df = models.getTransforms(id)
 
-    fig = Figure()
-    ax = fig.subplots(4, 1)
-
+    data = []
     for i, name in enumerate(['H2', 'CO', 'C2H4', 'C2H2']):
-        ax[i].plot(df[name], label=name)
-        ax[i].set_xticks([])
-        ax[i].legend()
+        fig = Figure()
+        ax = fig.subplots()
+        ax.plot(df[name], label=name)
+        ax.set_xticks([])
+        ax.legend()
 
-    buf = BytesIO()
-    fig.savefig(buf, format="png")
-    data = base64.b64encode(buf.getbuffer()).decode("ascii")
+        buf = BytesIO()
+        fig.savefig(buf, format="png")
+        data.append(base64.b64encode(buf.getbuffer()).decode("ascii"))
 
-    return render_template("detailed.html", graph=data)
+    return render_template("detailed.html", graph=data, last=df.iloc[-1])
 
 
 @app.route('/update')

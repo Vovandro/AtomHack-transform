@@ -1,16 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="/static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="/static/assets/css/styles.css">
+
+    <style>
+        .table td, .table th {
+        padding: 0px;
+        }
+    </style>
 </head>
+
+
 <body>
-
-<div>
-    <a href="/">< Back</a>
-</div>
-
-<img src='data:image/png;base64,{{graph}}'/>
-
+    <div class="container">
+        <div class="row">
+            <div class="col" style="padding: 0px;"><img style="background-image: url('/static/assets/img/logo.svg');width: 100%;height: 200px;"></div>
+        </div>
+        <div class="row">
+            <div class="col" style="padding: 20px;">
+                <a href="/" class="btn" type="button" style="margin: 5px;">< Back</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        Last value: {{last['H2']}}<br>
+                        <img style="width: 100%;height: 400px;" src='data:image/png;base64,{{graph[0]}}'/>
+                    </div>
+                    <div class="col">
+                        Last value: {{last['CO']}}<br>
+                        <img style="width: 100%;height: 400px;" src='data:image/png;base64,{{graph[1]}}'/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        Last value: {{last['C2H4']}}<br>
+                        <img style="width: 100%;height: 400px;" src='data:image/png;base64,{{graph[2]}}'/>
+                    </div>
+                    <div class="col">
+                        Last value: {{last['C2H2']}}<br>
+                        <img style="width: 100%;height: 400px;" src='data:image/png;base64,{{graph[3]}}'/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
+
 </html>
