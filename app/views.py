@@ -2,7 +2,9 @@ from app import app, models
 from flask import render_template
 from flask import helpers, redirect, url_for
 import catboost as cb
-
+from matplotlib.figure import Figure
+import base64
+from io import BytesIO
 
 @app.route('/')
 @app.route('/index')
@@ -15,7 +17,20 @@ def index():
 @app.route('/t/<int:id>')
 def t(id):
     df = models.getTransforms(id)
-    return render_template("detailed.html", df=df)
+
+    fig = Figure()
+    ax = fig.subplots(4, 1)
+
+    for i, name in enumerate(['H2', 'CO', 'C2H4', 'C2H2']):
+        ax[i].plot(df[name], label=name)
+        ax[i].set_xticks([])
+        ax[i].legend()
+
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+    data = base64.b64encode(buf.getbuffer()).decode("ascii")
+
+    return render_template("detailed.html", graph=data)
 
 
 @app.route('/update')
