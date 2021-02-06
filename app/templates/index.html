@@ -24,10 +24,11 @@
         </div>
         <div class="row">
             <div class="col text-center" style="padding: 20px;">
-                <button class="btn btn-primary text-center" type="button" style="margin: 5px;">Исправная работа - {{counts[1]}}</button>
-                <button class="btn btn-primary text-center" type="button" style="margin: 5px;">Частичный разряд - {{counts[2]}}</button>
-                <button class="btn btn-primary text-center" type="button" style="margin: 5px;">Разряд низкой энергией - {{counts[3]}}</button>
-                <button class="btn btn-primary text-center" type="button" style="margin: 5px;">Низкотемпературный термический дефект - {{counts[4]}}</button>
+                <a href="/" class="btn text-center" type="button" style="margin: 5px;">Всего - {{counts[1] + counts[2] + counts[3] + counts[4]}}</a>
+                <a href="/?val=1" class="btn text-center" type="button" style="margin: 5px;">Исправная работа - {{counts[1]}}</a>
+                <a href="/?val=2" class="btn text-center" type="button" style="margin: 5px;">Частичный разряд - {{counts[2]}}</a><br>
+                <a href="/?val=3" class="btn text-center" type="button" style="margin: 5px;">Разряд низкой энергией - {{counts[3]}}</a>
+                <a href="/?val=4" class="btn text-center" type="button" style="margin: 5px;">Низкотемпературный термический дефект - {{counts[4]}}</a>
             </div>
         </div>
         <div class="row">

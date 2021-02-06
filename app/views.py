@@ -13,7 +13,12 @@ from io import BytesIO
 def index():
     df = models.getTransformsList()
     df.sort_values('name_transfomr', inplace=True)
-    return render_template("index.html", df=df, counts=df.groupby('status')['name_transfomr'].count())
+    counts = df.groupby('status')['name_transfomr'].count()
+
+    if 'val' in request.args:
+        df = df[df['status'] == int(request.args['val'])]
+
+    return render_template("index.html", df=df, counts=counts)
 
 
 # Get history transformators
@@ -37,22 +42,22 @@ def t(id):
 
 
 # Adding interface
-@app.route('/api/add/<int:id>', method='POST')
+@app.route('/api/add/<int:id>', methods=['POST'])
 def add(id):
     data = request.get_json(silent=True)
     return str(models.addTransformData(id, data))
 
 
 # Get all transform data interface
-@app.route('/api/getall', method='POST')
-def add():
+@app.route('/api/getall', methods=['POST'])
+def getAll():
     data = models.getTransformsList().to_json()
     return data
 
 
 # Get all transform interface
-@app.route('/api/get/<int:id>', method='POST')
-def add():
+@app.route('/api/get/<int:id>', methods=['POST'])
+def getId():
     data = models.getTransforms(id).to_json()
     return data
 
